@@ -4,8 +4,8 @@ import tempfile
 import logging
 import uuid
 from requests.exceptions import ReadTimeout, ConnectionError
-from app.core.config import settings
-from app.utils.docker_utils import get_docker_client
+from shared.core.config import settings
+from services.worker.docker_utils import get_docker_client
 
 logger = logging.getLogger(__name__)
 client = get_docker_client()
@@ -23,13 +23,13 @@ async def execute_python_code(code: str):
         logger.info(f"[{req_id}] Slot acquired! Starting execution...")
         
         # Await the actual container logic.
-        stdout, stderr = await run_container_task(code, req_id)
+        stdout, stderr = await run_container_job(code, req_id)
         
         logger.info(f"[{req_id}] Execution finished. Slot freed.")
         
         return stdout, stderr, req_id
 
-async def run_container_task(code: str, req_id: str):
+async def run_container_job(code: str, req_id: str):
     """
     Sandbox Logic: Manages temporary files and Docker lifecycle.
     """

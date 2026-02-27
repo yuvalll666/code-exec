@@ -17,9 +17,23 @@ class Settings(BaseSettings):
     # Security Settings
     NETWORK_DISABLED: bool = True
     CONTAINER_USER: str = "1000:1000"
+    
+    # Data Base
+    DB_USER: str = Field(env="DB_USER")
+    DB_PASSWORD: str = Field(env="DB_PASSWORD")
+    DB_NAME: str = Field(env="DB_NAME")
+    DB_PORT: str = Field(env="DB_PORT")
+    DB_HOST: str = Field(env="DB_HOST")
+    
+    REDIS_URL: str = Field(env="REDIS_URL")
+    
+    @property
+    def DATABASE_URL(self) -> str:
+        return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
 
     class Config:
         case_sensitive = True
         env_file = ".env"
+        extra = "ignore"
 
 settings = Settings()

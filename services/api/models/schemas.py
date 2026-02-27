@@ -17,15 +17,4 @@ class CodeRequest(BaseModel):
         return v
 
 class CodeResponse(BaseModel):
-    stdout: str = Field(..., description="The standard output from the execution.")
-    stderr: str = Field(..., description="The error output (if any) from the execution.")
-    request_id: str = Field(..., description="Unique ID for tracking this execution in logs.")
-
-    class Config:
-        json_schema_extra = {
-            "example": {
-                "stdout": "4\n",
-                "stderr": "",
-                "request_id": "a1b2c3d4"
-            }
-        }
+    job_id: str = Field(..., description="The standard output from the execution.")
