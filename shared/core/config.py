@@ -22,15 +22,20 @@ class Settings(BaseSettings):
     DB_USER: str = Field(env="DB_USER")
     DB_PASSWORD: str = Field(env="DB_PASSWORD")
     DB_NAME: str = Field(env="DB_NAME")
-    DB_PORT: str = Field(env="DB_PORT")
+    DB_PORT: int = Field(env="DB_PORT")
     DB_HOST: str = Field(env="DB_HOST")
-    
-    REDIS_URL: str = Field(env="REDIS_URL")
-    
     @property
     def DATABASE_URL(self) -> str:
         return f"postgresql://{self.DB_USER}:{self.DB_PASSWORD}@{self.DB_HOST}:{self.DB_PORT}/{self.DB_NAME}"
-
+    
+    REDIS_HOST: str = Field(env="REDIS_HOST")
+    REDIS_PASSWORD: str = Field(env="REDIS_PASSWORD")
+    REDIS_PORT: int = Field(env="REDIS_PORT")
+    REDIS_DB: int = Field(env="REDIS_DB")
+    @property
+    def REDIS_URL(self) -> str:
+        return f"redis://:{self.REDIS_PASSWORD}@{self.REDIS_HOST}:{self.REDIS_PORT}/{self.REDIS_DB}"
+    
     class Config:
         case_sensitive = True
         env_file = ".env"
