@@ -24,7 +24,7 @@ def upgrade() -> None:
     op.create_table('jobs',
     sa.Column('id', sa.String(), nullable=False),
     sa.Column('code', sa.Text(), nullable=False),
-    sa.Column('status', sa.Enum('PENDING', 'RUNNING', 'COMPLETED', 'FAILED', name='jobstatus'), nullable=True),
+    sa.Column('status', sa.Enum('PENDING', 'PROCESSING', 'COMPLETED', 'FAILED', name='jobstatus'), nullable=True),
     sa.Column('stdout', sa.Text(), nullable=True),
     sa.Column('stderr', sa.Text(), nullable=True),
     sa.Column('created_at', sa.DateTime(), nullable=True),

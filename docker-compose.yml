@@ -41,7 +41,6 @@ services:
       - app-network
 
   worker:
-    container_name: worker
     build:
       context: .
       dockerfile: services/worker/Dockerfile
@@ -50,6 +49,11 @@ services:
     environment:
       - DB_HOST=postgres
       - REDIS_HOST=redis
+      - DOCKER_IMAGE=python:3.10-slim
+      - SHARED_PATH_ON_HOST=sandbox_data
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - sandbox_data:/tmp/shared_jobs
     depends_on:
       - postgres
       - redis
@@ -63,3 +67,5 @@ networks:
 volumes:
   postgres_data:
   redis_data:
+  sandbox_data:
+    name: sandbox_data

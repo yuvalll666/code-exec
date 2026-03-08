@@ -1,3 +1,6 @@
 docker
 requests
 pydantic-settings
+redis
+sqlalchemy
+psycopg2-binary

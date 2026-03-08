@@ -4,10 +4,10 @@ from datetime import datetime, timezone
 import enum
 
 class JobStatus(str, enum.Enum):
-    PENDING = "pending"
-    RUNNING = "running"
-    COMPLETED = "completed"
-    FAILED = "failed"
+    PENDING = "PENDING"
+    PROCESSING = "PROCESSING"
+    COMPLETED = "COMPLETED"
+    FAILED = "FAILED"
 
 class CodeJob(Base):
     __tablename__ = "jobs"
